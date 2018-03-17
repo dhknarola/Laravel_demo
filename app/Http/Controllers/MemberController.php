@@ -6,14 +6,20 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\Member;
+// use DB;
 
 class MemberController extends Controller
 {
     public function index()
     {
+        
+        // DB::enableQueryLog();
         $members = Member::latest()->paginate(10);
+        // $query = DB::getQueryLog();
+        // $query = end($query);
+        // dd($query);
         return view('members.index',compact('members'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+            ->with('i', (request()->input('page', 1) - 1) * 10);
     }
     /**
      * Show the form for creating a new resource.
@@ -34,7 +40,7 @@ class MemberController extends Controller
     {
         request()->validate([
             'name' => 'required',
-            'email' => 'required',
+            'email' => 'required|unique:members',
         ]);
         Member::create($request->all());
         return redirect()->route('members.index')
@@ -71,7 +77,7 @@ class MemberController extends Controller
     {
         request()->validate([
             'name' => 'required',
-            'email' => 'required',
+            'email' => 'required|unique:members,email,'.$member->id,
         ]);
         $member->update($request->all());
         return redirect()->route('members.index')
