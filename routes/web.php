@@ -15,5 +15,8 @@
 //     return view('welcome');
 // });
 
-Route::get('/','MemberController@index');
+Route::get('/','HomeController@index');
 Route::resource('members','MemberController');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
