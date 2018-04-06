@@ -47,7 +47,8 @@ class CompaniesController extends Controller
      */
     public function show($id)
     {
-        //
+        $company = Company::where('id',$id)->first();
+        return view('companies.show',['company' => $company]);
     }
 
     /**
@@ -58,7 +59,8 @@ class CompaniesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $company = Company::where('id',$id)->first();
+        return view('companies.edit',['company' => $company]);
     }
 
     /**
