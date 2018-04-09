@@ -6,7 +6,7 @@
   <p>{{ $company->description }}</p>
   <p>
   	<a class="btn btn-primary btn-lg" href="#" role="button">Add</a>
-  	<a class="btn btn-primary btn-lg" href="companies/{{ $company->id }}" role="button">Edit</a>
+  	<a class="btn btn-primary btn-lg" href="{{action('CompaniesController@edit',$company->id)}}" role="button">Edit</a>
   	<a class="btn btn-primary btn-lg" href="#" role="button">Delete</a>
   	<a class="btn btn-primary btn-lg" href="#" role="button">Back</a>
   </p>
