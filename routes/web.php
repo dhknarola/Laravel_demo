@@ -15,7 +15,7 @@
 //     return view('welcome');
 // });
 
-Route::get('/','HomeController@index');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -25,3 +25,17 @@ Route::resource('projects','ProjectsController');
 Route::resource('roles','RolesController');
 Route::resource('tasks','TasksController');
 Route::resource('users','UsersController');
+
+
+Route::group([
+    // 'prefix' => 'admin',
+    'middleware' => 'auth'
+], function () {
+	Route::get('/','TicketController@index');
+	Route::get('/create/ticket','TicketController@create');
+	Route::post('/create/ticket','TicketController@store');
+	Route::get('/tickets', 'TicketController@index');
+	Route::get('/edit/ticket/{id}','TicketController@edit');
+	Route::post('/edit/ticket/{id}','TicketController@update');
+	Route::delete('/delete/ticket/{id}','TicketController@destroy');
+});
